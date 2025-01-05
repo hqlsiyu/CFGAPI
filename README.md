@@ -15,7 +15,7 @@
 2.  **使用代理:**
     -   向您部署的 Cloudflare Pages URL 发送请求，格式如下：
         ```
-        https://your-cloudflare-pages-domain/v1beta/...your-gemini-api-endpoint.../?key=YOUR_API_KEY1;YOUR_API_KEY2
+        https://your-cloudflare-pages-domain/v1beta/.../?key=YOUR_API_KEY1;YOUR_API_KEY2
         ```
         -   将 `YOUR_API_KEY1;YOUR_API_KEY2` 替换为您 Google Gemini API 密钥，多个密钥之间用分号分隔。
         -   代理将为每个请求随机选择一个您提供的 API 密钥。
