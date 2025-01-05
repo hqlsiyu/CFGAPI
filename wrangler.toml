@@ -1,0 +1,3 @@
+name = "CF-gemini"  # 项目名称
+main = "functions/[[path]].js" # 入口文件
+compatibility_date = "2025-01-05" # 兼容性日期
