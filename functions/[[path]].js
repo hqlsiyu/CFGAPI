@@ -23,13 +23,15 @@ export async function onRequest(context) {
 
     // 克隆并修改请求体
     let newBody = {};
-    if (request.body) {
-      try {
-        newBody = await request.json();
-      } catch (e) {
-        console.log(e);
-      }
-    }
+     if (request.body) {
+        try {
+            newBody = await request.json();
+        } catch (e) {
+            console.error('Error parsing request body:', e);
+           // 如果body解析失败，返回错误信息
+            return new Response('Invalid request body', { status: 400 });
+        }
+     }
 
     // 添加安全设置参数
     newBody.safetySettings = [
@@ -58,7 +60,7 @@ export async function onRequest(context) {
 
     const modifiedRequest = new Request(newUrl.toString(), {
       headers: request.headers,
-      method: request.method,
+      method: 'POST', // 强制使用 POST 方法
       body: JSON.stringify(newBody),
       redirect: 'follow'
     });
@@ -74,8 +76,7 @@ export async function onRequest(context) {
     const modifiedResponse = new Response(response.body, response);
     modifiedResponse.headers.set('Access-Control-Allow-Origin', '*');
     modifiedResponse.headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    modifiedResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
-
+     modifiedResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
     return modifiedResponse;
 
   } catch (error) {
